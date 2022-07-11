@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #3366CC;">
+    <div class="container">
+        <a href="https://www.gov.co/home/">
+            <img src="https://www.bucaramanga.gov.co/wp-content/uploads/2021/03/logo_gov_co-e1611810279980.png" alt="">
+        </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link fw-bolder text-white" href="{% url 'gateway:home' %}">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+                <button class="dropdown-toggle nav-link bg-transparent fw-bolder text-white" style="border: none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Empleo
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="{% url 'empleo:empleoDashboard' %}">Empleo</a></li>
+                  {% if request.session.roleUser == 'empresaGeneral' %}
+                  <li><a class="dropdown-item" href="{% url 'empleoJoven:empleoJovenDashboard' %}">Empleo Joven</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder text-white" href="{% url 'bancaCiudadana:bancaPostulacionFase1' %}">Banca</a>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+                <button class="dropdown-toggle nav-link bg-transparent fw-bolder text-white" style="border: none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Observatorio
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="{% url 'observatorio:indicadorMercLaboral' %}">Indicadores de Mercado Laboral</a></li>
+                  <li><a class="dropdown-item" href="{% url 'observatorio:indicadorMacroeconomico' %}">Indicadores Macroeconómicos</a></li>
+                  <li><a class="dropdown-item" href="{% url 'observatorio:indicadorPulsoSocial' %}">Pulso Social</a></li>
+                  <li><a class="dropdown-item" href="{% url 'observatorio:indicadorEmpresarial' %}">Indicadores Empresariales</a></li>
+                </ul>
+              </div>
+          </li>
+          <li class="nav-item">
+            {% if request.user.is_authenticated %}
+            <div class="dropdown">
+              <button class="dropdown-toggle nav-link bg-transparent fw-bolder text-white" style="border: none;" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                Hola, {{request.session.nombre|truncatechars:20}}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" href="{% url 'observatorio:indicadorMercLaboral' %}">perfil</a></li>
+                <li>
+                  <a href="{% url 'gateway:logout' %}" class="dropdown-item">Salir</a>
+                </li>
+              </ul>
+            </div>
+            {% else %}
+            <a href="{% url 'gateway:login' %}" class="nav-link fw-bolder text-white">Login</a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

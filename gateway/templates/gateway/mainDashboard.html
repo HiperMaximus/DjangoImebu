@@ -1,0 +1,70 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div class="container d-flex justify-content-center align-items-center h-100">
+    <div class="row pt-4 pb-4">
+        {% if request.session.roleUser == 'empresaGeneral' and periodo%}
+        <div class="col-md-4 pb-4">
+            <div class="card text-center card-propia animate__animated animate__fadeInUp">
+                <div class="overflow">
+                    <img src="https://www.bucaramanga.gov.co/wp-content/uploads/2022/02/BANNER_JOVENES2560x900.png" alt="" class="card-img-top"/> 
+                </div>
+                <div class="card-body card-body-propia">
+                    <h2>Empleo Joven</h2>
+                    <p class="card-text card-text-propia"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to </p>
+                    <a href="{% url 'empleoJoven:empleoJovenDashboard' %}" class="btn btn-outline-primary">Ir al beneficio</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-md-4 pb-4">
+            <div class="card text-center card-propia animate__animated animate__fadeInUp">
+                <div class="overflow">
+                    <img src="https://www.bucaramanga.gov.co/wp-content/uploads/2022/02/BANNER_JOVENES2560x900.png" alt="" class="card-img-top"/> 
+                </div>
+                <div class="card-body card-body-propia">
+                    <h2>Programa Empleo</h2>
+                    <p class="card-text card-text-propia"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to </p>
+                    <a href="{% url 'empleo:empleoDashboard' %}" class="btn btn-outline-primary">Ir al programa</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pb-4">
+            <div class="card text-center card-propia animate__animated animate__fadeInUp">
+                <div class="overflow">
+                    <img src="https://www.bucaramanga.gov.co/wp-content/uploads/2022/02/BANNER_JOVENES2560x900.png" alt="" class="card-img-top"/> 
+                </div>
+                <div class="card-body card-body-propia">
+                    <h2>Programa Banca Ciudadana</h2>
+                    <p class="card-text card-text-propia"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to </p>
+                    <a href="{% url 'bancaCiudadana:bancaPostulacionFase1' %}" class="btn btn-outline-primary">Ir al programa</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center card-propia animate__animated animate__fadeInUp">
+                <div class="overflow">
+                    <img src="https://www.bucaramanga.gov.co/wp-content/uploads/2022/02/BANNER_JOVENES2560x900.png" alt="" class="card-img-top"/> 
+                </div>
+                <div class="card-body card-body-propia">
+                    <h2>Observatorio</h2>
+                    <p class="card-text card-text-propia"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to </p>
+                    <a href="{% url 'observatorio:observatorioDashboard' %}" class="btn btn-outline-primary">Ir al observatorio</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center card-propia animate__animated animate__fadeInUp">
+                <div class="overflow">
+                    <img src="https://www.bucaramanga.gov.co/wp-content/uploads/2022/02/BANNER_JOVENES2560x900.png" alt="" class="card-img-top"/> 
+                </div>
+                <div class="card-body card-body-propia">
+                    <h2>Programa CREA</h2>
+                    <p class="card-text card-text-propia"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to </p>
+                    <a href="#" class="btn btn-outline-primary">Ir a CREA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

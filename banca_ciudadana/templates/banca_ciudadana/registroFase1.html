@@ -1,0 +1,11 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div>
+    <form action="{% url 'bancaCiudadana:bancaPostulacionFase1'%}" method="post">
+        {% csrf_token %}
+        {{formFase1.as_p}}
+        <input type="submit" value="Guardar" />
+    </form>
+</div>
+
+{% endblock content %}

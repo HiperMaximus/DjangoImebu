@@ -1,0 +1,498 @@
+{% extends 'layout.html' %} {% block content %}
+{% load static %}
+
+<div class="container pt-4 rounded-3" style="background-color: white">
+    <div class="container p-4">
+        <div class="row align-items-center">
+            <div class="col-12 fw-bold">
+                <h4 style="color: #004484">
+                    Ten en cuenta que para recibir el subsidio debes tener la siguiente documentacion cargada y
+                    actualizada en los periodos vigentes ({{periodoFront.fechaInicio}} -
+                    {{periodoFront.fechaFin}})
+                    <br>
+                    El estado y las observaciones se completaran una vez un funcionario revise su documentacion
+                </h4>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="container">
+    <!--
+    <a href="#" class="btn btn-primary btn-lg">Cargar documento</a>
+    -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>Documento</th>
+                <th>Fecha ultima actualizacion</th>
+                <th>Opciones</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RUT o Cedula</td>
+                    {% if rut %}
+                    <td>{{rut.updated}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <a href="{% get_media_prefix %}{{rut.documento}}" class="btn btn-primary btn-lg"
+                                target="_blank">ver</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#actualizarDocumento">
+                                actualizar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="actualizarDocumento" tabindex="-1"
+                                aria-labelledby="actualizarDocumentoLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="actualizarDocumentoLabel">Actualizar Documento
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form
+                                                action="{% url 'empleoJoven:empleoJovenUpdateDocumentGeneral' rut.id 'RUT' %}"
+                                                method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{formDocument.as_p}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">cerrar</button>
+                                                <input type="submit" class="btn btn-success"
+                                                value="guardar" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        {% if rut.estado == 'ER' %}
+                        En Revisión
+                        {% elif rut.estado == 'A' %}
+                        Aceptado
+                        {% else %}
+                        Rechazado
+                        {% endif %}
+                    </td>
+                    <td>{{rut.observaciones}}</td>
+                    {% else %}
+                    <td>No hay documento actualmente</td>
+                    <td>
+                        <form action="{% url 'empleoJoven:empleoJovenAddDocumentGeneral' 'RUT' %}" method="post"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{formDocument.as_p}}
+                            <input type="submit" class="btn btn-primary" value="Agregar" />
+                        </form>
+                    </td>
+                    <td>
+                        No hay estado asignado
+                    </td>
+                    <td>No hay observaciones</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Registro Mercantil</td>
+                    {% if registroMercantil %}
+                    <td>{{registroMercantil.updated}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <a href="{% get_media_prefix %}{{registroMercantil.documento}}"
+                                class="btn btn-primary btn-lg" target="_blank">ver</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#actualizarDocumento2">
+                                actualizar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="actualizarDocumento2" tabindex="-1"
+                                aria-labelledby="actualizarDocumento2Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="actualizarDocumento2Label">Actualizar Documento
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form
+                                                action="{% url 'empleoJoven:empleoJovenUpdateDocumentGeneral' registroMercantil.id 'RegistroMercantil' %}"
+                                                method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{formDocument.as_p}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">cerrar</button>
+                                                <input type="submit" class="btn btn-success"
+                                                value="guardar" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        {% if registroMercantil.estado == 'ER' %}
+                        En Revisión
+                        {% elif registroMercantil.estado == 'A' %}
+                        Aceptado
+                        {% else %}
+                        Rechazado
+                        {% endif %}
+                    </td>
+                    <td>{{registroMercantil.observaciones}}</td>
+                    {% else %}
+                    <td>No hay documento actualmente</td>
+                    <td>
+                        <form action="{% url 'empleoJoven:empleoJovenAddDocumentGeneral' 'RegistroMercantil' %}"
+                            method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{formDocument.as_p}}
+                            <input type="submit" class="btn btn-primary" value="Agregar" />
+                        </form>
+                    </td>
+                    <td>
+                        No hay estado asignado
+                    </td>
+                    <td>No hay observaciones</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Industria y Comercio</td>
+                    {% if industriaComercio %}
+                    <td>{{industriaComercio.updated}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <a href="{% get_media_prefix %}{{industriaComercio.documento}}"
+                                class="btn btn-primary btn-lg" target="_blank">ver</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#actualizarDocumento4">
+                                actualizar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="actualizarDocumento4" tabindex="-1"
+                                aria-labelledby="actualizarDocumento4Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="actualizarDocumento4Label">Actualizar Documento
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form
+                                                action="{% url 'empleoJoven:empleoJovenUpdateDocumentJoven' industriaComercio.id 'IndustriaComercio' %}"
+                                                method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{formDocument.as_p}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">cerrar</button>
+                                                <input type="submit" class="btn btn-success"
+                                                value="guardar" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form action="{% url 'empleoJoven:empleoJovenDeleteDocumentJoven' industriaComercio.id %}"
+                                method="post">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger btn-lg w-100" value="eliminar" />
+                            </form>
+
+                        </div>
+                    </td>
+                    <td>
+                        {% if industriaComercio.estado == 'ER' %}
+                        En Revisión
+                        {% elif industriaComercio.estado == 'A' %}
+                        Aceptado
+                        {% else %}
+                        Rechazado
+                        {% endif %}
+                    </td>
+                    <td>{{industriaComercio.observaciones}}</td>
+                    {% else %}
+                    <td>No hay documento actualmente</td>
+                    <td>
+                        <form action="{% url 'empleoJoven:empleoJovenAddDocumentJoven' 'IndustriaComercio' %}"
+                            method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{formEmpresaJovenDocument.as_p}}
+                            <input type="submit" class="btn btn-primary" value="Agregar" />
+                        </form>
+                    </td>
+                    <td>
+                        No hay estado asignado
+                    </td>
+                    <td>No hay observaciones</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Certificacion Bancaria</td>
+                    {% if certificacionBancaria %}
+                    <td>{{certificacionBancaria.updated}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <a href="{% get_media_prefix %}{{certificacionBancaria.documento}}"
+                                class="btn btn-primary btn-lg" target="_blank">ver</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#actualizarDocumento3">
+                                actualizar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="actualizarDocumento3" tabindex="-1"
+                                aria-labelledby="actualizarDocumento3Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="actualizarDocumento3Label">Actualizar Documento
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form
+                                                action="{% url 'empleoJoven:empleoJovenUpdateDocumentGeneral' certificacionBancaria.id 'CertificacionBancaria' %}"
+                                                method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{formDocument.as_p}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">cerrar</button>
+                                                <input type="submit" class="btn btn-success"
+                                                value="guardar" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        {% if certificacionBancaria.estado == 'ER' %}
+                        En Revisión
+                        {% elif certificacionBancaria.estado == 'A' %}
+                        Aceptado
+                        {% else %}
+                        Rechazado
+                        {% endif %}
+                    </td>
+                    <td>{{certificacionBancaria.observaciones}}</td>
+                    {% else %}
+                    <td>No hay documento actualmente</td>
+                    <td>
+                        <form action="{% url 'empleoJoven:empleoJovenAddDocumentGeneral' 'CertificacionBancaria' %}"
+                            method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{formDocument.as_p}}
+                            <input type="submit" class="btn btn-primary" value="Agregar" />
+                        </form>
+                    </td>
+                    <td>
+                        No hay estado asignado
+                    </td>
+                    <td>No hay observaciones</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Certificacion de pagos de Nomina</td>
+                    {% if certificacionPagosNomina %}
+                    <td>{{certificacionPagosNomina.updated}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <a href="{% get_media_prefix %}{{certificacionPagosNomina.documento}}"
+                                class="btn btn-primary btn-lg" target="_blank">ver</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#actualizarDocumento5">
+                                actualizar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="actualizarDocumento5" tabindex="-1"
+                                aria-labelledby="actualizarDocumento5Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="actualizarDocumento5Label">Actualizar Documento
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form
+                                                action="{% url 'empleoJoven:empleoJovenUpdateDocumentJoven' certificacionPagosNomina.id 'CertificacionPagosNomina' %}"
+                                                method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{formDocument.as_p}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">cerrar</button>
+                                                <input type="submit" class="btn btn-success"
+                                                value="guardar" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form
+                                action="{% url 'empleoJoven:empleoJovenDeleteDocumentJoven' certificacionPagosNomina.id %}"
+                                method="post">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger btn-lg w-100" value="eliminar" />
+                            </form>
+
+                        </div>
+                    </td>
+                    <td>
+                        {% if certificacionPagosNomina.estado == 'ER' %}
+                        En Revisión
+                        {% elif certificacionPagosNomina.estado == 'A' %}
+                        Aceptado
+                        {% else %}
+                        Rechazado
+                        {% endif %}
+                    </td>
+                    <td>{{certificacionPagosNomina.observaciones}}</td>
+                    {% else %}
+                    <td>No hay documento actualmente</td>
+                    <td>
+                        <form action="{% url 'empleoJoven:empleoJovenAddDocumentJoven' 'CertificacionPagosNomina' %}"
+                            method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{formEmpresaJovenDocument.as_p}}
+                            <input type="submit" class="btn btn-primary" value="Agregar" />
+                        </form>
+                    </td>
+                    <td>
+                        No hay estado asignado
+                    </td>
+                    <td>No hay observaciones</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Declaracion Juramentada</td>
+                    {% if declaracionJuramentada %}
+                    <td>{{declaracionJuramentada.updated}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <a href="{% get_media_prefix %}{{declaracionJuramentada.documento}}"
+                                class="btn btn-primary btn-lg" target="_blank">ver</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#actualizarDocumento6">
+                                actualizar
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="actualizarDocumento6" tabindex="-1"
+                                aria-labelledby="actualizarDocumento6Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="actualizarDocumento6Label">Actualizar Documento
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form
+                                                action="{% url 'empleoJoven:empleoJovenUpdateDocumentJoven' declaracionJuramentada.id 'DeclaracionJuramentada' %}"
+                                                method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{formDocument.as_p}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">cerrar</button>
+                                                <input type="submit" class="btn btn-success"
+                                                value="guardar" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form
+                                action="{% url 'empleoJoven:empleoJovenDeleteDocumentJoven' declaracionJuramentada.id %}"
+                                method="post">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger btn-lg w-100" value="eliminar" />
+                            </form>
+
+                        </div>
+                    </td>
+                    <td>
+                        {% if declaracionJuramentada.estado == 'ER' %}
+                        En Revisión
+                        {% elif declaracionJuramentada.estado == 'A' %}
+                        Aceptado
+                        {% else %}
+                        Rechazado
+                        {% endif %}
+                    </td>
+                    <td>{{declaracionJuramentada.observaciones}}</td>
+                    {% else %}
+                    <td>No hay documento actualmente</td>
+                    <td>
+                        <form action="{% url 'empleoJoven:empleoJovenAddDocumentJoven' 'DeclaracionJuramentada' %}"
+                            method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{formEmpresaJovenDocument.as_p}}
+                            <input type="submit" class="btn btn-primary" value="Agregar" />
+                        </form>
+                    </td>
+                    <td>
+                        No hay estado asignado
+                    </td>
+                    <td>No hay observaciones</td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

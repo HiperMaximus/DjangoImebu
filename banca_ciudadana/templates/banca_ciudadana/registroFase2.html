@@ -1,0 +1,18 @@
+{% extends 'layout.html' %} 
+
+{% block content %}
+{% if idFase1 %}
+<div>
+    <form action="{% url 'bancaCiudadana:bancaPostulacionFase2'%}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="idFase1" value="{{idFase1}}">
+        {{formFase2.as_p}}
+        <input type="submit" value="Guardar" />
+    </form>
+</div>
+{% else %}
+<h1>Vaya no tienes permiso para estar aqui vuelve a completar el registro del primer paso</h1>
+{% endif %}
+
+
+{% endblock content %}

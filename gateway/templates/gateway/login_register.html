@@ -1,0 +1,161 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% if page == 'login' %}
+<div class="container pt-4">
+    <div class="row pb-4">
+    <div class=" col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="overflow">
+                <img src="https://empleo-joven.bucaramanga.gov.co/img/banner_imebu.png" alt="" class="card-img-top" />
+            </div>
+            <div class="card-body">
+                <h2>Inicia Sesion</h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-10 mb-4 offset-md-1">
+                            <label for="InputEmail1" class="form-label">Email:</label>
+                            <input type="email" name="email" class="form-control" id="InputEmail1"
+                                aria-describedby="emailHelp" placeholder="introduce tu correo electronico">
+                            <div id="emailHelp" class="form-text">Nunca compartas tus datos de acceso con nadie.</div>
+                        </div>
+                        <div class="col-md-10 mb-4 offset-md-1">
+                            <label for="InputPassword1" class="form-label">Contraseña</label>
+                            <input type="password" name="password" class="form-control" id="InputPassword1"
+                                placeholder="introduce tu contraseña">
+                        </div>
+                        <button type="submit"
+                            class="btn btn-outline-primary col-md-8 mb-4 offset-md-2">Iniciar Sesion</button>
+                    </div>
+                </form>
+                <h4 class="mb-4">no tienes cuenta todavia?</h4>
+                <div class="row">
+                    <a href="{% url 'gateway:registerPersona' %}"
+                        class="btn btn-outline-success col-md-8 mb-4 offset-md-2">Registrate como persona</a>
+                    <a href="{% url 'gateway:registerEmpresa' %}"
+                        class="btn btn-outline-info col-md-8 mb-4 offset-md-2">Registrate como empresa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+    </div>
+</div>
+{% elif page == 'registerEmpresa' %}
+<div>
+    <div class="container pt-4">
+        <div class="row pb-4">
+            <div class=" col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card text-start">
+                    <div class="card-body">
+                        <h2 class="pb-4">Registra tu empresa</h2>
+                        <form action="" method="post" enctype="multipart/form-data" class="mt-4">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            {{formUser.as_p}}
+                            {{formDocument.as_p}}
+                            <div class="d-grid gap-2 pt-4">
+                                <button type="submit" value="Registrate" class="btn btn-primary">Registrate</button>
+                            </div>
+                        </form>
+                        <p class="mt-4 text-center">Ya tienes una cuenta?</p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'gateway:login' %}" class="btn btn-primary">Inicia sesion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+{% else %}
+<div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.nombres.errors}}
+        {{form.nombres.label_tag}}
+        {{form.nombres}}
+
+        {{form.apellidos.errors}}
+        {{form.apellidos.label_tag}}
+        {{form.apellidos}}
+
+        {{form.fechaNacimiento.errors}}
+        {{form.fechaNacimiento.label_tag}}
+        {{form.fechaNacimiento}}
+
+        {{form.genero.errors}}
+        {{form.genero.label_tag}}
+        {{form.genero}}
+
+        {{formUser.email.errors}}
+        {{formUser.email.label_tag}}
+        {{formUser.email}}
+        
+        {{formUser.tipoDocumento.errors}}
+        {{formUser.tipoDocumento.label_tag}}
+        {{formUser.tipoDocumento}}
+
+        {{formUser.username.errors}}
+        {{formUser.username.label_tag}}
+        {{formUser.username}}
+
+        {{form.etnia.errors}}
+        {{form.etnia.label_tag}}
+        {{form.etnia}}
+
+        {{form.vulnerabilidad.errors}}
+        {{form.vulnerabilidad.label_tag}}
+        {{form.vulnerabilidad}}
+
+        {{form.estadoCivil.errors}}
+        {{form.estadoCivil.label_tag}}
+        {{form.estadoCivil}}
+
+        {{formUser.telefono1.errors}}
+        {{formUser.telefono1.label_tag}}
+        {{formUser.telefono1}}
+
+        {{formUser.telefono2.errors}}
+        {{formUser.telefono2.label_tag}}
+        {{formUser.telefono2}}
+
+        {{formUser.direccion.errors}}
+        {{formUser.direccion.label_tag}}
+        {{formUser.direccion}}
+        
+        {{formUser.barrio.errors}}
+        {{formUser.barrio.label_tag}}
+        {{formUser.barrio}}
+
+        {{form.nacionalidad.errors}}
+        {{form.nacionalidad.label_tag}}
+        {{form.nacionalidad}}
+
+        {{formUser.password1.errors}}
+        {{formUser.password1.label_tag}}
+        {{formUser.password1}}
+
+        {{formUser.password2.errors}}
+        {{formUser.password2.label_tag}}
+        {{formUser.password2}}
+
+        {{formUser.politicaTratamiento.errors}}
+        {{formUser.politicaTratamiento.label_tag}}
+        {{formUser.politicaTratamiento}}
+
+        {{formUser.aceptoTerminosCondiciones.errors}}
+        {{formUser.aceptoTerminosCondiciones.label_tag}}
+        {{formUser.aceptoTerminosCondiciones}}
+        <input type="submit" value="Registrate" />
+    </form>
+    <p>Ya tienes una cuenta?</p>
+    <a href="{% url 'gateway:login' %}">Inicia sesion</a>
+</div>
+{% endif %}
+{% endblock %}
